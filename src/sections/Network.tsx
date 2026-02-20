@@ -53,7 +53,7 @@ export function Network() {
           </motion.p>
 
           <motion.h2
-            className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -87,7 +87,7 @@ export function Network() {
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="relative p-8 bg-[var(--color-surface)]/80 backdrop-blur-sm rounded-[24px] border border-[var(--color-border)] text-center group hover:border-white/30 transition-colors"
+              className="relative p-6 md:p-8 bg-[var(--color-surface)]/80 backdrop-blur-sm rounded-[20px] md:rounded-[24px] border border-[var(--color-border)] text-center group hover:border-white/30 transition-colors"
               whileHover={{ y: -4 }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export function Network() {
               transition={{ delay: 0.4 + i * 0.1 }}
             >
               <stat.icon size={24} className="mx-auto mb-4 text-[var(--color-text-3)] group-hover:text-white transition-colors" />
-              <div className="text-4xl md:text-5xl font-bold mb-2">{stat.value}</div>
+              <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">{stat.value}</div>
               <div className="text-sm text-[var(--color-text-2)]">{stat.label}</div>
             </motion.div>
           ))}

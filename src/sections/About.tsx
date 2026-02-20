@@ -7,7 +7,7 @@ export function About() {
   return (
     <section id="about" className="py-24 px-6 md:px-8 bg-[var(--color-bg-2)]">
       <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Image */}
           <motion.div
             className="aspect-[4/3] rounded-[24px] overflow-hidden"

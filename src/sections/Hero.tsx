@@ -128,7 +128,7 @@ export function Hero() {
 
           {/* Stats row */}
           <motion.div
-            className="flex gap-12 mt-20"
+            className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 mt-12 md:mt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
@@ -144,8 +144,8 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 + i * 0.1 }}
               >
-                <div className="text-4xl md:text-5xl font-bold">{stat.value}</div>
-                <div className="text-sm text-[var(--color-text-3)] uppercase tracking-wider">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-[var(--color-text-3)] uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>

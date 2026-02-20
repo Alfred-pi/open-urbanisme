@@ -13,7 +13,7 @@ export function Universities() {
   return (
     <section id="research" className="py-24 px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
