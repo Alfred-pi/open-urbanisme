@@ -1,94 +1,65 @@
-import { Section } from '../components/Section';
 import { motion } from 'framer-motion';
-import { Users, Handshake, Target, ArrowUpRight } from 'lucide-react';
+import { Users, Handshake, Target } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
-const approaches = [
-  {
-    icon: Users,
-    number: '01',
-    title: 'Collective Intelligence',
-    description: 'Open-source philosophy enabling continuous improvements through community contributions.',
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80',
-  },
-  {
-    icon: Handshake,
-    number: '02',
-    title: 'Collaborative Design',
-    description: 'All stakeholders co-design shared intentions for sustainable development.',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
-  },
-  {
-    icon: Target,
-    number: '03',
-    title: 'Pragmatic Results',
-    description: 'Real-world tested approaches across 40+ sites on 4 continents.',
-    image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80',
-  },
-];
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
 export function Approaches() {
+  const { t } = useLanguage();
+
+  const approaches = [
+    { icon: Users, ...t.approach.collective },
+    { icon: Handshake, ...t.approach.collaborative },
+    { icon: Target, ...t.approach.pragmatic },
+  ];
+
   return (
-    <Section id="approach" dark>
-      <motion.div
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        <p className="text-sm tracking-[0.2em] uppercase text-[var(--color-text-3)] mb-4">
-          Our Approach
-        </p>
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-          Test. Use. <span className="text-shine">Contribute.</span>
-        </h2>
-      </motion.div>
+    <section id="approach" className="py-24 px-6 md:px-8">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-sm font-semibold text-[var(--color-text-3)] uppercase tracking-wider mb-4">
+            {t.approach.label}
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            {t.approach.title}
+          </h2>
+        </motion.div>
 
-      <div className="space-y-6">
-        {approaches.map((approach, i) => (
-          <motion.div
-            key={approach.number}
-            className="group gradient-border p-1"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.15 }}
-          >
-            <div className="bg-[var(--color-surface)] rounded-[22px] p-6 md:p-8 flex flex-col md:flex-row gap-8 items-center">
-              {/* Image */}
-              <motion.div 
-                className="w-full md:w-64 h-48 md:h-40 rounded-[16px] overflow-hidden flex-shrink-0"
-                whileHover={{ scale: 1.02 }}
-              >
-                <img 
-                  src={approach.image} 
-                  alt={approach.title}
-                  className="w-full h-full object-cover img-bw"
-                />
-              </motion.div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-6xl font-bold text-[var(--color-text-3)] opacity-30">{approach.number}</span>
-                  <div className="w-12 h-12 rounded-full border border-[var(--color-border)] flex items-center justify-center group-hover:border-white group-hover:bg-white group-hover:text-black transition-all">
-                    <approach.icon size={20} />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold mb-2">{approach.title}</h3>
-                <p className="text-[var(--color-text-2)]">{approach.description}</p>
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {approaches.map((approach) => (
+            <motion.div
+              key={approach.title}
+              className="p-8 bg-[var(--color-surface)] rounded-[24px] border border-[var(--color-border)] hover:border-[var(--color-text-3)] transition-colors"
+              variants={item}
+            >
+              <div className="w-12 h-12 rounded-[14px] bg-[var(--color-surface-2)] flex items-center justify-center mb-6">
+                <approach.icon size={22} className="text-[var(--color-text-2)]" />
               </div>
-
-              {/* Arrow */}
-              <motion.div 
-                className="hidden md:flex w-12 h-12 rounded-full border border-[var(--color-border)] items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                whileHover={{ scale: 1.1, rotate: 45 }}
-              >
-                <ArrowUpRight size={20} />
-              </motion.div>
-            </div>
-          </motion.div>
-        ))}
+              <h3 className="text-lg font-semibold mb-3">{approach.title}</h3>
+              <p className="text-[var(--color-text-2)] leading-relaxed">{approach.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </Section>
+    </section>
   );
 }

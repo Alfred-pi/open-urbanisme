@@ -1,18 +1,20 @@
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-
-const navLinks: { label: string; href: string; external?: boolean }[] = [
-  { label: 'About', href: '#about' },
-  { label: 'Approach', href: '#approach' },
-  { label: 'Deploy', href: '#deploy' },
-  { label: 'Research', href: '#research' },
-  { label: 'Network', href: '#network' },
-  { label: 'Hub', href: 'https://openurbanism.ch/fr', external: true },
-];
+import { useLanguage } from '../i18n/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.approach, href: '#approach' },
+    { label: t.nav.deploy, href: '#deploy' },
+    { label: t.nav.research, href: '#research' },
+    { label: t.nav.hub, href: 'https://openurbanism.ch/fr', external: true },
+  ];
 
   return (
     <motion.nav
@@ -29,7 +31,7 @@ export function Navbar() {
           </a>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -43,13 +45,16 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* CTA */}
-          <a
-            href="#deploy"
-            className="hidden md:inline-flex px-5 py-2 bg-white text-black text-sm font-semibold rounded-[8px] hover:bg-[var(--color-text-2)] transition-colors"
-          >
-            Get Started
-          </a>
+          {/* Right side */}
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
+            <a
+              href="#deploy"
+              className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-[8px] hover:bg-[var(--color-text-2)] transition-colors"
+            >
+              {t.nav.getStarted}
+            </a>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -81,6 +86,9 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
+            <div className="pt-4 border-t border-[var(--color-border)]">
+              <LanguageSwitcher />
+            </div>
           </div>
         </motion.div>
       )}

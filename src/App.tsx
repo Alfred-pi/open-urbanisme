@@ -1,3 +1,4 @@
+import { LanguageProvider } from './i18n/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Hero } from './sections/Hero';
@@ -11,20 +12,22 @@ import { Network } from './sections/Network';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[var(--color-bg)]">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Approaches />
-        <Trust />
-        <Innovation />
-        <Deployment />
-        <Universities />
-        <Network />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen bg-[var(--color-bg)]">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Approaches />
+          <Trust />
+          <Innovation />
+          <Deployment />
+          <Universities />
+          <Network />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
 

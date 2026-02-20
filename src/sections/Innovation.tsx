@@ -1,62 +1,64 @@
-import { Section } from '../components/Section';
 import { motion } from 'framer-motion';
-import { Users, Shield, Zap, ArrowRight } from 'lucide-react';
-
-const features = [
-  {
-    icon: Users,
-    title: 'Broader Representativeness',
-    description: 'Involve all sections of the public, including those who never attend consultation meetings.',
-    stat: '100%',
-    statLabel: 'Inclusive',
-  },
-  {
-    icon: Shield,
-    title: 'Emergence of Trust',
-    description: 'Build trust through mutual listening and transparent decision-making processes.',
-    stat: '40+',
-    statLabel: 'Projects',
-  },
-  {
-    icon: Zap,
-    title: 'Visible Results',
-    description: 'Deliver short-term results to accelerate sustainable lifestyle adoption.',
-    stat: '4',
-    statLabel: 'Continents',
-  },
-];
+import { Users, Shield, Zap } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export function Innovation() {
-  return (
-    <Section dark>
-      <div className="grid lg:grid-cols-2 gap-16 items-start">
-        {/* Left: Header + Image */}
-        <div className="lg:sticky lg:top-32">
-          <motion.p
-            className="text-sm tracking-[0.2em] uppercase text-[var(--color-text-3)] mb-4"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            Innovation
-          </motion.p>
+  const { t } = useLanguage();
 
-          <motion.h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8"
+  const features = [
+    { icon: Users, ...t.innovation.broader },
+    { icon: Shield, ...t.innovation.trust },
+    { icon: Zap, ...t.innovation.visible },
+  ];
+
+  return (
+    <section className="py-24 px-6 md:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Content */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Digital methods for{' '}
-            <span className="text-shine">universal needs</span>
-          </motion.h2>
+            <p className="text-sm font-semibold text-[var(--color-text-3)] uppercase tracking-wider mb-4">
+              {t.innovation.label}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
+              {t.innovation.title}
+            </h2>
+            <p className="text-[var(--color-text-2)] leading-relaxed mb-10">
+              {t.innovation.subtitle}
+            </p>
 
+            <div className="space-y-4">
+              {features.map((feature, i) => (
+                <motion.div
+                  key={feature.title}
+                  className="flex gap-4 p-5 bg-[var(--color-surface)] rounded-[20px] border border-[var(--color-border)]"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <div className="w-10 h-10 rounded-[12px] bg-[var(--color-surface-2)] flex items-center justify-center flex-shrink-0">
+                    <feature.icon size={18} className="text-[var(--color-text-2)]" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">{feature.title}</h4>
+                    <p className="text-sm text-[var(--color-text-2)]">{feature.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Image */}
           <motion.div
-            className="aspect-[4/3] rounded-[24px] overflow-hidden"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="aspect-[3/4] rounded-[24px] overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
           >
             <img 
               src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1200&q=80"
@@ -65,39 +67,7 @@ export function Innovation() {
             />
           </motion.div>
         </div>
-
-        {/* Right: Features */}
-        <div className="space-y-6">
-          {features.map((feature, i) => (
-            <motion.div
-              key={feature.title}
-              className="group p-8 bg-[var(--color-surface)] rounded-[24px] border border-[var(--color-border)] hover:border-white/30 transition-colors cursor-pointer"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ x: 10 }}
-            >
-              <div className="flex items-start justify-between mb-6">
-                <div className="w-14 h-14 rounded-full border border-[var(--color-border)] flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-                  <feature.icon size={24} />
-                </div>
-                <div className="text-right">
-                  <div className="text-3xl font-bold">{feature.stat}</div>
-                  <div className="text-xs text-[var(--color-text-3)] uppercase tracking-wider">{feature.statLabel}</div>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-[var(--color-text-2)] mb-6">{feature.description}</p>
-
-              <div className="flex items-center gap-2 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                Learn more <ArrowRight size={16} />
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
-    </Section>
+    </section>
   );
 }

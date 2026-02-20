@@ -1,8 +1,10 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, Play } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { useRef } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export function Hero() {
+  const { t, lang } = useLanguage();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -12,13 +14,19 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
+  // Titles per language
+  const titles = {
+    en: { line1: 'Collective', line2: 'Intelligence' },
+    fr: { line1: 'Intelligence', line2: 'Collective' },
+    es: { line1: 'Inteligencia', line2: 'Colectiva' },
+  };
+
+  const currentTitle = titles[lang];
+
   return (
     <section ref={ref} className="min-h-screen relative overflow-hidden">
       {/* Parallax Background */}
-      <motion.div 
-        className="absolute inset-0"
-        style={{ y }}
-      >
+      <motion.div className="absolute inset-0" style={{ y }}>
         <div 
           className="absolute inset-0 bg-cover bg-center img-bw scale-110"
           style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80)' }}
@@ -33,12 +41,14 @@ export function Hero() {
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
       <motion.div 
-        className="absolute bottom-1/3 left-1/5 w-2 h-2 bg-white/30 rounded-full float"
-        style={{ animationDelay: '0s' }}
+        className="absolute bottom-1/3 left-1/5 w-2 h-2 bg-white/30 rounded-full"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 3, repeat: Infinity }}
       />
       <motion.div 
-        className="absolute top-1/3 right-1/3 w-3 h-3 bg-white/20 rounded-full float"
-        style={{ animationDelay: '1s' }}
+        className="absolute top-1/3 right-1/3 w-3 h-3 bg-white/20 rounded-full"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 4, repeat: Infinity, delay: 1 }}
       />
 
       {/* Content */}
@@ -55,10 +65,10 @@ export function Hero() {
             transition={{ delay: 0.3 }}
           >
             <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            <span className="text-sm tracking-wide">Open Source · UN-Habitat Recognised</span>
+            <span className="text-sm tracking-wide">{t.hero.badge}</span>
           </motion.div>
 
-          {/* Title */}
+          {/* Title - Two lines with animation */}
           <div className="mb-0">
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[100px] font-bold tracking-tighter leading-[0.9]"
@@ -66,7 +76,7 @@ export function Hero() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              Collective
+              {currentTitle.line1}
             </motion.h1>
           </div>
           <div className="mb-6">
@@ -76,7 +86,7 @@ export function Hero() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              Intelligence
+              {currentTitle.line2}
             </motion.h1>
           </div>
 
@@ -87,7 +97,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
           >
-            Democratic urban planning for sustainable cities worldwide.
+            {t.hero.subtitle}
           </motion.p>
 
           {/* CTAs */}
@@ -103,14 +113,8 @@ export function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Get Started
-              <motion.span
-                className="inline-block"
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
-              >
-                →
-              </motion.span>
+              {t.hero.cta}
+              <motion.span className="inline-block" whileHover={{ x: 5 }}>→</motion.span>
             </motion.a>
             <motion.a 
               href="#about"
@@ -118,8 +122,7 @@ export function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Play size={18} />
-              Watch Video
+              {t.hero.learnMore}
             </motion.a>
           </motion.div>
 
@@ -131,8 +134,8 @@ export function Hero() {
             transition={{ delay: 1 }}
           >
             {[
-              { value: '40+', label: 'Global Sites' },
-              { value: '7B', label: 'Potential Users' },
+              { value: '40+', label: t.hero.sites },
+              { value: '7B', label: t.hero.continents },
               { value: '100%', label: 'Open Source' },
             ].map((stat, i) => (
               <motion.div 
@@ -157,10 +160,7 @@ export function Hero() {
         transition={{ delay: 1.2 }}
       >
         <span className="text-xs uppercase tracking-widest text-[var(--color-text-3)]">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
           <ArrowDown size={20} className="text-[var(--color-text-3)]" />
         </motion.div>
       </motion.div>
