@@ -9,7 +9,7 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <img src="/logo.png" alt="Open Urbanism" className="h-8 mb-4" />
+            <img src={import.meta.env.BASE_URL + 'logo.png'} alt="Open Urbanism" className="h-8 mb-4" />
             <p className="text-sm text-[var(--color-text-2)] max-w-xs">
               {t.footer.desc}
             </p>

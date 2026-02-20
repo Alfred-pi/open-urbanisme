@@ -27,7 +27,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Open Urbanism" className="h-8" />
+            <img src={import.meta.env.BASE_URL + 'logo.png'} alt="Open Urbanism" className="h-8" />
           </a>
 
           {/* Desktop Nav */}
