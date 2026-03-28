@@ -149,20 +149,20 @@ export function Hero() {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-      </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-      >
-        <span className="text-xs uppercase tracking-widest text-[var(--color-text-3)]">Scroll</span>
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-          <ArrowDown size={20} className="text-[var(--color-text-3)]" />
-        </motion.div>
+          {/* Scroll indicator - in flow */}
+          <motion.div 
+            className="flex flex-col items-center gap-2 mt-16 md:mt-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+          >
+            <span className="text-xs uppercase tracking-widest text-[var(--color-text-3)]">Scroll</span>
+            <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+              <ArrowDown size={20} className="text-[var(--color-text-3)]" />
+            </motion.div>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );
